@@ -33,6 +33,8 @@ namespace CensusAnalyserProblem
             int count = 0;
             if (!path.Contains("IndiaStateCode"))
                 throw new CensusAnalyserException("Incorrect File");
+            if (!path.Contains(".csv"))
+                throw new CensusAnalyserException("Incorrect File Type");
 
             string[] code = File.ReadAllLines(path);
             for (int i = 0; i < code.Length; i++)

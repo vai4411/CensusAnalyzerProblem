@@ -31,6 +31,9 @@ namespace CensusAnalyserProblem
         public static int getStateCodeCount(string path)
         {
             int count = 0;
+            if (!path.Contains("IndiaStateCode"))
+                throw new CensusAnalyserException("Incorrect File");
+
             string[] code = File.ReadAllLines(path);
             for (int i = 0; i < code.Length; i++)
             {

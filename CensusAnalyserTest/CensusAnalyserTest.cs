@@ -80,5 +80,18 @@ namespace CensusAnalyserTest
             int count = CensusAnalyser.getStateCodeCount(STATE_CODE_CSV_FILE_PATH);
             Assert.AreEqual(37, count);
         }
+
+        [Test]
+        public void givenIndianStateCode_WhenWrongFile_ThenThrowException()
+        {
+            try
+            {
+                CensusAnalyser.getStateCodeCount(Wrong_FILE_PATH);
+            }
+            catch (CensusAnalyserException e)
+            {
+                Assert.AreEqual("Incorrect File", e.Message);
+            }
+        }
     }
 }

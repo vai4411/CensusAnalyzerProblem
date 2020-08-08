@@ -14,11 +14,16 @@ namespace CensusAnalyserProblem
                 throw new CensusAnalyserException("Incorrect File Type");
 
             string[] n = File.ReadAllLines(path);
-                for (int i = 0; i < n.Length; i++)
-                {
-                    count++;
-                }
-                return count - 1;
+            foreach(string record in n)
+            {
+                if(!record.Contains(","))
+                    throw new CensusAnalyserException("Incorrect Delimiter");
+            }
+            for (int i = 0; i < n.Length; i++)
+            {
+                count++;
+            }
+            return count - 1;
         }
     }
 }

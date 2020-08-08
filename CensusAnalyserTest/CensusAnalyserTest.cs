@@ -8,6 +8,7 @@ namespace CensusAnalyserTest
         private static string INDIA_CENSUS_CSV_FILE_PATH = "C:/Users/Vaibhav/source/repos/CensusAnalyser/CensusAnalyserTest/resources/csv/IndiaStateCensusData.csv";
         private static string Wrong_FILE_PATH = "C:/Users/Vaibhav/source/repos/CensusAnalyser/CensusAnalyser/resources/csv/StateCensusData.csv";
         private static string INVALID_FILE_TYPE = "C:/Users/Vaibhav/source/repos/CensusAnalyser/CensusAnalyserTest/resources/csv/IndiaStateCensusData.pdf";
+        private static string WRONG_DELIMITER_FILE_PATH = "C:/Users/Vaibhav/source/repos/CensusAnalyser/CensusAnalyserTest/resources/csv/IndiaStateCensusDataDelimiter.csv";
 
         [SetUp]
         public void Setup()
@@ -42,6 +43,19 @@ namespace CensusAnalyserTest
             catch (CensusAnalyserException e)
             {
                 Assert.AreEqual("Incorrect File Type", e.Message);
+            }
+        }
+
+        [Test]
+        public void givenIndiaCensusData_WhenWrongDelimiterFile_ThenThrowException()
+        {
+            try
+            {
+                CensusAnalyser.getCount(WRONG_DELIMITER_FILE_PATH);
+            }
+            catch (CensusAnalyserException e)
+            {
+                Assert.AreEqual("Incorrect DELIMITER", e.Message);
             }
         }
     }

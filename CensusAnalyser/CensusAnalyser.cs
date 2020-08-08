@@ -13,15 +13,15 @@ namespace CensusAnalyserProblem
             if (!path.Contains(".csv"))
                 throw new CensusAnalyserException("Incorrect File Type");
 
-            string[] n = File.ReadAllLines(path);
-            if (n[0] != "State,Population,AreaInSqKm,DensityPerSqKm")
+            string[] census = File.ReadAllLines(path);
+            if (census[0] != "State,Population,AreaInSqKm,DensityPerSqKm")
                 throw new CensusAnalyserException("Incorrect File Header");
-            foreach (string record in n)
+            foreach (string record in census)
             {
                 if (!record.Contains(","))
                     throw new CensusAnalyserException("Incorrect Delimiter");
             }
-            for (int i = 0; i < n.Length; i++)
+            for (int i = 0; i < census.Length; i++)
             {
                 count++;
             }
@@ -31,8 +31,8 @@ namespace CensusAnalyserProblem
         public static int getStateCodeCount(string path)
         {
             int count = 0;
-            string[] n = File.ReadAllLines(path);
-            for (int i = 0; i < n.Length; i++)
+            string[] code = File.ReadAllLines(path);
+            for (int i = 0; i < code.Length; i++)
             {
                 count++;
             }

@@ -6,7 +6,8 @@ namespace CensusAnalyserTest
     public class Tests
     {
         private static string INDIA_CENSUS_CSV_FILE_PATH = "C:/Users/Vaibhav/source/repos/CensusAnalyser/CensusAnalyserTest/resources/csv/IndiaStateCensusData.csv";
-        private static string Wrong_FILE_PATH = "C:/Users/Vaibhav/source/repos/CensusAnalyser/CensusAnalyser/resources/csv/IndiaStateCensusData.csv";
+        private static string Wrong_FILE_PATH = "C:/Users/Vaibhav/source/repos/CensusAnalyser/CensusAnalyser/resources/csv/StateCensusData.csv";
+        private static string INVALID_FILE_TYPE = "C:/Users/Vaibhav/source/repos/CensusAnalyser/CensusAnalyserTest/resources/csv/IndiaStateCensusData.pdf";
 
         [SetUp]
         public void Setup()
@@ -28,6 +29,19 @@ namespace CensusAnalyserTest
             }catch(CensusAnalyserException e)
             {
                 Assert.AreEqual("Incorrect File", e.Message);
+            }
+        }
+
+        [Test]
+        public void givenIndiaCensusData_WhenWrongFileType_ThenThrowException()
+        {
+            try
+            {
+                CensusAnalyser.getCount(INVALID_FILE_TYPE);
+            }
+            catch (CensusAnalyserException e)
+            {
+                Assert.AreEqual("Incorrect File Type", e.Message);
             }
         }
     }

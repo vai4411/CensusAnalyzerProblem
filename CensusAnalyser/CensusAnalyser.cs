@@ -37,6 +37,11 @@ namespace CensusAnalyserProblem
                 throw new CensusAnalyserException("Incorrect File Type");
 
             string[] code = File.ReadAllLines(path);
+            foreach (string record in code)
+            {
+                if (!record.Contains(","))
+                    throw new CensusAnalyserException("Incorrect Delimiter");
+            }
             for (int i = 0; i < code.Length; i++)
             {
                 count++;

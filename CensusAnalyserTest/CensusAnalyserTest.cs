@@ -10,6 +10,7 @@ namespace CensusAnalyserTest
         private static string INVALID_FILE_TYPE = "C:/Users/Vaibhav/source/repos/CensusAnalyser/CensusAnalyserTest/resources/csv/IndiaStateCensusData.pdf";
         private static string WRONG_DELIMITER_FILE_PATH = "C:/Users/Vaibhav/source/repos/CensusAnalyser/CensusAnalyserTest/resources/csv/IndiaStateCensusDataDelimiter.csv";
         private static string WRONG_HEADER_FILE_PATH = "C:/Users/Vaibhav/source/repos/CensusAnalyser/CensusAnalyserTest/resources/csv/IndiaStateCensusDataHeader.csv";
+        private static string STATE_CODE_CSV_FILE_PATH = "C:/Users/Vaibhav/source/repos/CensusAnalyser/CensusAnalyserTest/resources/csv/IndiaStateCode.csv";
 
         [SetUp]
         public void Setup()
@@ -17,9 +18,9 @@ namespace CensusAnalyserTest
         }
 
         [Test]
-        public void givenIndianCensus_WhenCSVFileInterate_ThenReturnsNumberOfRecords()
+        public void givenIndianCensus_WhenCSVFileIterate_ThenReturnsNumberOfRecords()
         {
-            int count = CensusAnalyser.getCount(INDIA_CENSUS_CSV_FILE_PATH);
+            int count = CensusAnalyser.getStateCensusCount(INDIA_CENSUS_CSV_FILE_PATH);
             Assert.AreEqual(29,count);
         }
 
@@ -27,7 +28,7 @@ namespace CensusAnalyserTest
         public void givenIndiaCensusData_WhenWrongFile_ThenThrowException()
         {
             try {
-                CensusAnalyser.getCount(Wrong_FILE_PATH);
+                CensusAnalyser.getStateCensusCount(Wrong_FILE_PATH);
             }catch(CensusAnalyserException e)
             {
                 Assert.AreEqual("Incorrect File", e.Message);
@@ -39,7 +40,7 @@ namespace CensusAnalyserTest
         {
             try
             {
-                CensusAnalyser.getCount(INVALID_FILE_TYPE);
+                CensusAnalyser.getStateCensusCount(INVALID_FILE_TYPE);
             }
             catch (CensusAnalyserException e)
             {
@@ -52,7 +53,7 @@ namespace CensusAnalyserTest
         {
             try
             {
-                CensusAnalyser.getCount(WRONG_DELIMITER_FILE_PATH);
+                CensusAnalyser.getStateCensusCount(WRONG_DELIMITER_FILE_PATH);
             }
             catch (CensusAnalyserException e)
             {
@@ -65,12 +66,19 @@ namespace CensusAnalyserTest
         {
             try
             {
-                CensusAnalyser.getCount(WRONG_HEADER_FILE_PATH);
+                CensusAnalyser.getStateCensusCount(WRONG_HEADER_FILE_PATH);
             }
             catch (CensusAnalyserException e)
             {
                 Assert.AreEqual("Incorrect File Header", e.Message);
             }
+        }
+
+        [Test]
+        public void givenIndianStateCode_WhenCSVFileIterate_ThenReturnsNumberOfRecords()
+        {
+            int count = CensusAnalyser.getStateCodeCount(STATE_CODE_CSV_FILE_PATH);
+            Assert.AreEqual(37, count);
         }
     }
 }

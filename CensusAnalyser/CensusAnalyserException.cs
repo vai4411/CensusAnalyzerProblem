@@ -4,7 +4,15 @@ using System.Text;
 
 namespace CensusAnalyserProblem
 {
-    class CensusAnalyserException
+    public class CensusAnalyserException:Exception
     {
+      //  private string message;
+
+        public CensusAnalyserException(string message):base(message)
+        {
+           // this.message = message;
+        }
+
+        public override string Message => base.Message;
     }
 }

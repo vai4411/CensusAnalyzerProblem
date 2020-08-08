@@ -16,7 +16,8 @@ namespace CensusAnalyserProblem
                     count++;
                 }
                 return count - 1;
-            }catch(Exception e)
+            }
+            catch (Exception)
             {
                 throw new CensusAnalyserException("Incorrect File");
             }

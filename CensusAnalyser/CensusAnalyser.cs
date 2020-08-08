@@ -37,6 +37,8 @@ namespace CensusAnalyserProblem
                 throw new CensusAnalyserException("Incorrect File Type");
 
             string[] code = File.ReadAllLines(path);
+            if (code[0] != "SrNo,State Name,TIN,StateCode")
+                throw new CensusAnalyserException("Incorrect File Header");
             foreach (string record in code)
             {
                 if (!record.Contains(","))

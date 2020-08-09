@@ -1,12 +1,14 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace CensusAnalyserProblem
 {
     public class CensusAnalyser:ICSVBuilder
     {
         public delegate int totalRecords();
-        string path;
-        string header;
+        public string path;
+        public string header;
 
         public CensusAnalyser(string path,string header)
         {
@@ -23,23 +25,19 @@ namespace CensusAnalyserProblem
                 throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.INVALID_FILE_TYPE);
 
             string[] data = File.ReadAllLines(path);
-            if (data[0] != header)
+            List<string> list = data.ToList<string>();
+            if (list[0] != header)
                 throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.INVALID_HEADER);
-            foreach (string record in data)
+            foreach (string record in list)
             {
                 if (record.Split(',').Length != header.Split(',').Length)
                     throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.INVALID_DELIMITER);
             }
-            for (int i = 0; i < data.Length; i++)
+            for (int i = 0; i < list.Count; i++)
             {
                 count++;
             }
             return count - 1;
         }
-
-/*        int ICSVBuilder.getCount()
-        {
-            throw new System.NotImplementedException();
-        }
- */   }
+    }
 }

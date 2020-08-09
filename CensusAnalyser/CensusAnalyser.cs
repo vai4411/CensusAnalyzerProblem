@@ -4,6 +4,7 @@ namespace CensusAnalyserProblem
 {
     public class CensusAnalyser
     {
+        public delegate int totalRecords();
         string path;
         string header;
 

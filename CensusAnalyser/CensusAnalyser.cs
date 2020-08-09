@@ -1,50 +1,35 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 
 namespace CensusAnalyserProblem
 {
     public class CensusAnalyser
     {
-        public static int getStateCensusCount(string path)
-        {
-            int count = 0;
-            if (!path.Contains("IndiaStateCensusData"))
-                throw new CensusAnalyserException("Incorrect File");
-            if (!path.Contains(".csv"))
-                throw new CensusAnalyserException("Incorrect File Type");
+        string path;
+        string header;
 
-            string[] census = File.ReadAllLines(path);
-            if (census[0] != "State,Population,AreaInSqKm,DensityPerSqKm")
-                throw new CensusAnalyserException("Incorrect File Header");
-            foreach (string record in census)
-            {
-                if (!record.Contains(","))
-                    throw new CensusAnalyserException("Incorrect Delimiter");
-            }
-            for (int i = 0; i < census.Length; i++)
-            {
-                count++;
-            }
-            return count - 1;
+        public CensusAnalyser(string path,string header)
+        {
+            this.path = path;
+            this.header = header;
         }
 
-        public static int getStateCodeCount(string path)
+        public int getCount()
         {
             int count = 0;
-            if (!path.Contains("IndiaStateCode"))
-                throw new CensusAnalyserException("Incorrect File");
+            if (!File.Exists(path))
+                throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.FILE_NOT_FOUND);
             if (!path.Contains(".csv"))
-                throw new CensusAnalyserException("Incorrect File Type");
+                throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.INVALID_FILE_TYPE);
 
-            string[] code = File.ReadAllLines(path);
-            if (code[0] != "SrNo,State Name,TIN,StateCode")
-                throw new CensusAnalyserException("Incorrect File Header");
-            foreach (string record in code)
+            string[] data = File.ReadAllLines(path);
+            if (data[0] != header)
+                throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.INVALID_HEADER);
+            foreach (string record in data)
             {
-                if (!record.Contains(","))
-                    throw new CensusAnalyserException("Incorrect Delimiter");
+                if (record.Split(',').Length != header.Split(',').Length)
+                    throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.INVALID_DELIMITER);
             }
-            for (int i = 0; i < code.Length; i++)
+            for (int i = 0; i < data.Length; i++)
             {
                 count++;
             }

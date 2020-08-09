@@ -2,7 +2,7 @@
 
 namespace CensusAnalyserProblem
 {
-    public class CensusAnalyser
+    public class CensusAnalyser:ICSVBuilder
     {
         public delegate int totalRecords();
         string path;
@@ -36,5 +36,10 @@ namespace CensusAnalyserProblem
             }
             return count - 1;
         }
-    }
+
+/*        int ICSVBuilder.getCount()
+        {
+            throw new System.NotImplementedException();
+        }
+ */   }
 }

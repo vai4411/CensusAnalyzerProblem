@@ -24,7 +24,8 @@ namespace CensusAnalyserTest
         [Test]
         public void givenIndianCensus_WhenCSVFileIterate_ThenReturnsNumberOfRecords()
         {
-            CensusAnalyser censusAnalyser = new CensusAnalyser(INDIA_CENSUS_CSV_FILE_PATH,CENSUS_HEADER);
+            CSVBuilderFactory factory = new CSVBuilderFactory();
+            CensusAnalyser censusAnalyser = (CensusAnalyser)factory.builder(INDIA_CENSUS_CSV_FILE_PATH,CENSUS_HEADER);
             totalRecords count = new totalRecords(censusAnalyser.getCount);
             int entries = count();
             Assert.AreEqual(29,entries);
@@ -33,7 +34,8 @@ namespace CensusAnalyserTest
         [Test]
         public void givenIndiaCensusData_WhenWrongFile_ThenThrowException()
         {
-            CensusAnalyser censusAnalyser = new CensusAnalyser(Wrong_FILE_PATH,CENSUS_HEADER);
+            CSVBuilderFactory factory = new CSVBuilderFactory();
+            CensusAnalyser censusAnalyser = (CensusAnalyser)factory.builder(Wrong_FILE_PATH,CENSUS_HEADER);
             totalRecords count = new totalRecords(censusAnalyser.getCount);
             var result = Assert.Throws<CensusAnalyserException>(() => count());
             Assert.AreEqual(CensusAnalyserException.ExceptionType.FILE_NOT_FOUND, result.exceptionType);
@@ -42,7 +44,8 @@ namespace CensusAnalyserTest
         [Test]
         public void givenIndiaCensusData_WhenWrongFileType_ThenThrowException()
         {
-            CensusAnalyser censusAnalyser = new CensusAnalyser(INVALID_FILE_TYPE,CENSUS_HEADER);
+            CSVBuilderFactory factory = new CSVBuilderFactory();
+            CensusAnalyser censusAnalyser = (CensusAnalyser)factory.builder(INVALID_FILE_TYPE,CENSUS_HEADER);
             totalRecords count = new totalRecords(censusAnalyser.getCount);
             var result = Assert.Throws<CensusAnalyserException>(() => count());
             Assert.AreEqual(CensusAnalyserException.ExceptionType.INVALID_FILE_TYPE, result.exceptionType);
@@ -51,7 +54,8 @@ namespace CensusAnalyserTest
         [Test]
         public void givenIndiaCensusData_WhenWrongDelimiterFile_ThenThrowException()
         {
-            CensusAnalyser censusAnalyser = new CensusAnalyser(WRONG_DELIMITER_FILE_PATH,CENSUS_HEADER);
+            CSVBuilderFactory factory = new CSVBuilderFactory();
+            CensusAnalyser censusAnalyser = (CensusAnalyser)factory.builder(WRONG_DELIMITER_FILE_PATH,CENSUS_HEADER);
             totalRecords count = new totalRecords(censusAnalyser.getCount);
             var result = Assert.Throws<CensusAnalyserException>(() => count());
             Assert.AreEqual(CensusAnalyserException.ExceptionType.INVALID_DELIMITER, result.exceptionType);
@@ -60,7 +64,8 @@ namespace CensusAnalyserTest
         [Test]
         public void givenIndiaCensusData_WhenWrongFileHeader_ThenThrowException()
         {
-            CensusAnalyser censusAnalyser = new CensusAnalyser(INDIA_CENSUS_CSV_FILE_PATH,WRONG_HEADER_FILE_PATH);
+            CSVBuilderFactory factory = new CSVBuilderFactory();
+            CensusAnalyser censusAnalyser = (CensusAnalyser)factory.builder(INDIA_CENSUS_CSV_FILE_PATH,WRONG_HEADER_FILE_PATH);
             totalRecords count = new totalRecords(censusAnalyser.getCount);
             var result = Assert.Throws<CensusAnalyserException>(() => count());
             Assert.AreEqual(CensusAnalyserException.ExceptionType.INVALID_HEADER, result.exceptionType);
@@ -69,7 +74,8 @@ namespace CensusAnalyserTest
         [Test]
         public void givenIndianStateCode_WhenCSVFileIterate_ThenReturnsNumberOfRecords()
         {
-            CensusAnalyser censusAnalyser = new CensusAnalyser(STATE_CODE_CSV_FILE_PATH,STATE_CODE_HEADER);
+            CSVBuilderFactory factory = new CSVBuilderFactory();
+            CensusAnalyser censusAnalyser = (CensusAnalyser)factory.builder(STATE_CODE_CSV_FILE_PATH,STATE_CODE_HEADER);
             totalRecords count = new totalRecords(censusAnalyser.getCount);
             int entries = count();
             Assert.AreEqual(37, entries);
@@ -78,7 +84,8 @@ namespace CensusAnalyserTest
         [Test]
         public void givenIndianStateCode_WhenWrongFile_ThenThrowException()
         {
-            CensusAnalyser censusAnalyser = new CensusAnalyser(Wrong_FILE_PATH, STATE_CODE_HEADER);
+            CSVBuilderFactory factory = new CSVBuilderFactory();
+            CensusAnalyser censusAnalyser = (CensusAnalyser)factory.builder(Wrong_FILE_PATH, STATE_CODE_HEADER);
             totalRecords count = new totalRecords(censusAnalyser.getCount);
             var result = Assert.Throws<CensusAnalyserException>(() => count());
             Assert.AreEqual(CensusAnalyserException.ExceptionType.FILE_NOT_FOUND, result.exceptionType);
@@ -87,7 +94,8 @@ namespace CensusAnalyserTest
         [Test]
         public void givenIndianStateCode_WhenWrongFileType_ThenThrowException()
         {
-            CensusAnalyser censusAnalyser = new CensusAnalyser(INVALID_FILE_TYPE, STATE_CODE_HEADER);
+            CSVBuilderFactory factory = new CSVBuilderFactory();
+            CensusAnalyser censusAnalyser = (CensusAnalyser)factory.builder(INVALID_FILE_TYPE, STATE_CODE_HEADER);
             totalRecords count = new totalRecords(censusAnalyser.getCount);
             var result = Assert.Throws<CensusAnalyserException>(() => count());
             Assert.AreEqual(CensusAnalyserException.ExceptionType.INVALID_FILE_TYPE, result.exceptionType);
@@ -96,7 +104,8 @@ namespace CensusAnalyserTest
         [Test]
         public void givenIndianStateCode_WhenWrongDelimiterFile_ThenThrowException()
         {
-            CensusAnalyser censusAnalyser = new CensusAnalyser(STATE_CODE_WRONG_DELIMITER_FILE_PATH, STATE_CODE_HEADER);
+            CSVBuilderFactory factory = new CSVBuilderFactory();
+            CensusAnalyser censusAnalyser = (CensusAnalyser)factory.builder(STATE_CODE_WRONG_DELIMITER_FILE_PATH, STATE_CODE_HEADER);
             totalRecords count = new totalRecords(censusAnalyser.getCount);
             var result = Assert.Throws<CensusAnalyserException>(() => count());
             Assert.AreEqual(CensusAnalyserException.ExceptionType.INVALID_DELIMITER, result.exceptionType);
@@ -105,7 +114,8 @@ namespace CensusAnalyserTest
         [Test]
         public void givenIndianStateCode_WhenWrongFileHeader_ThenThrowException()
         {
-            CensusAnalyser censusAnalyser = new CensusAnalyser(STATE_CODE_CSV_FILE_PATH,WRONG_HEADER_FILE_PATH);
+            CSVBuilderFactory factory = new CSVBuilderFactory();
+            CensusAnalyser censusAnalyser = (CensusAnalyser)factory.builder(STATE_CODE_CSV_FILE_PATH,WRONG_HEADER_FILE_PATH);
             totalRecords count = new totalRecords(censusAnalyser.getCount);
             var result = Assert.Throws<CensusAnalyserException>(() => count());
             Assert.AreEqual(CensusAnalyserException.ExceptionType.INVALID_HEADER,result.exceptionType);

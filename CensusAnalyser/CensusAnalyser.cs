@@ -27,9 +27,8 @@ namespace CensusAnalyserProblem
             if (Path.GetExtension(path) != ".csv")
                 throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.INVALID_FILE_TYPE);
 
-            string[] data = File.ReadAllLines(path);
-            
-            map = data.ToDictionary(key => key, value => value);
+            IndiaCensusDAO censusDAO = new IndiaCensusDAOImpl();
+            map = (Dictionary<string, string>)censusDAO.GetTotalEntries(path);
             if (map.ElementAt(0).Value != header)
                 throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.INVALID_HEADER);
             foreach (string record in map.Values)

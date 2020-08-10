@@ -23,10 +23,9 @@ namespace CensusAnalyserProblem
 
         public int getCount()
         {
-            int count = 0;
             if (!File.Exists(path))
                 throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.FILE_NOT_FOUND);
-            if (!path.Contains(".csv"))
+            if (Path.GetExtension(path) != ".csv")
                 throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.INVALID_FILE_TYPE);
 
             string[] data = File.ReadAllLines(path);
@@ -38,23 +37,19 @@ namespace CensusAnalyserProblem
                 if (record.Split(',').Length != header.Split(',').Length)
                     throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.INVALID_DELIMITER);
             }
-            for (int i = 0; i < list.Count; i++)
-            {
-                count++;
-            }
-            return count - 1;
+            return list.Count - 1;
         }
 
-        public string sortStatePopulationWise(string feild)
+        public string SortStatePopulationWise(string feild)
         {
             getCount();
-            dataSort(feild);
+            DataSort(feild);
             string sortedString = JsonConvert.SerializeObject(list);
             return sortedString;
         }
 
 
-        void dataSort(string feild)
+        void DataSort(string feild)
         {
             string[] demo = header.Split(',');
             int index = Array.IndexOf(demo, feild);

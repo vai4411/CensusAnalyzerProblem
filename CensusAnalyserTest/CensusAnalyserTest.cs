@@ -128,7 +128,7 @@ namespace CensusAnalyserTest
         {
             CSVBuilderFactory factory = new CSVBuilderFactory();
             CensusAnalyser censusAnalyser = (CensusAnalyser)factory.builder(INDIA_CENSUS_CSV_FILE_PATH, CENSUS_HEADER);
-            string data = censusAnalyser.sortStatePopulationWise("State");
+            string data = censusAnalyser.SortStatePopulationWise("State");
             var census = JsonConvert.DeserializeObject<List<string>>(data);
             Assert.AreEqual("Andhra Pradesh,49386799,162968,303", census[1]);
         }
@@ -138,7 +138,7 @@ namespace CensusAnalyserTest
         {
             CSVBuilderFactory factory = new CSVBuilderFactory();
             CensusAnalyser censusAnalyser = (CensusAnalyser)factory.builder(STATE_CODE_CSV_FILE_PATH, STATE_CODE_HEADER);
-            string data = censusAnalyser.sortStatePopulationWise("StateCode");
+            string data = censusAnalyser.SortStatePopulationWise("StateCode");
             var census = JsonConvert.DeserializeObject<List<string>>(data);
             Assert.AreEqual("3,Andhra Pradesh New,37,AD", census[1]);
         }

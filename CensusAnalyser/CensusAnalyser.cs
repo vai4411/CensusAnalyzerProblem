@@ -11,8 +11,8 @@ namespace CensusAnalyserProblem
         public delegate int totalRecords();
         public string path;
         public string header;
-        List<string> list = new List<string>();
         List<string> censusList = new List<string>();
+        Dictionary<string, string> map = new Dictionary<string,string>();
 
         public CensusAnalyser(string path, string header)
         {
@@ -28,15 +28,16 @@ namespace CensusAnalyserProblem
                 throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.INVALID_FILE_TYPE);
 
             string[] data = File.ReadAllLines(path);
-            list = data.ToList<string>();
-            if (list[0] != header)
+            
+            map = data.ToDictionary(key => key, value => value);
+            if (map.ElementAt(0).Value != header)
                 throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.INVALID_HEADER);
-            foreach (string record in list)
+            foreach (string record in map.Values)
             {
                 if (record.Split(',').Length != header.Split(',').Length)
                     throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.INVALID_DELIMITER);
             }
-            return list.Count - 1;
+            return map.Count - 1;
         }
 
         public string SortStatePopulationWise(string column)
@@ -44,7 +45,7 @@ namespace CensusAnalyserProblem
             getCount();
             string[] demo = header.Split(',');
             int index = Array.IndexOf(demo, column);
-            var data = list.Skip(1);
+            var data = map.Values.Skip(1);
             IEnumerable<string> sort =
             from entry in data
             let feild = entry.Split(',')

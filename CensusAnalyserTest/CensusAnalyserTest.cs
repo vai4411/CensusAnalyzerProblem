@@ -124,13 +124,23 @@ namespace CensusAnalyserTest
         }
 
         [Test]
-        public void givenData_SortedStates_InJsonFormat()
+        public void givenData_WhenCensusStatePass_ThenSortDataInJsonFormat()
         {
             CSVBuilderFactory factory = new CSVBuilderFactory();
             CensusAnalyser censusAnalyser = (CensusAnalyser)factory.builder(INDIA_CENSUS_CSV_FILE_PATH, CENSUS_HEADER);
             string data = censusAnalyser.sortStatePopulationWise("State");
             var census = JsonConvert.DeserializeObject<List<string>>(data);
             Assert.AreEqual("Andhra Pradesh,49386799,162968,303", census[1]);
+        }
+
+        [Test]
+        public void givenData_WhenStateCodePass_ThenSortDataInJsonFormat()
+        {
+            CSVBuilderFactory factory = new CSVBuilderFactory();
+            CensusAnalyser censusAnalyser = (CensusAnalyser)factory.builder(STATE_CODE_CSV_FILE_PATH, STATE_CODE_HEADER);
+            string data = censusAnalyser.sortStatePopulationWise("StateCode");
+            var census = JsonConvert.DeserializeObject<List<string>>(data);
+            Assert.AreEqual("3,Andhra Pradesh New,37,AD", census[1]);
         }
     }
 }

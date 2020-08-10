@@ -49,7 +49,7 @@ namespace CensusAnalyserProblem
         {
             getCount();
             dataSort(feild);
-            string sortedString = new JavaScriptSerializer().Serialize(list);
+            string sortedString = JsonConvert.SerializeObject(list);
             return sortedString;
         }
 

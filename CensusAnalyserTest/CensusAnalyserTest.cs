@@ -162,5 +162,19 @@ namespace CensusAnalyserTest
             var census = JsonConvert.DeserializeObject<List<string>>(data);
             Assert.AreEqual("37,West Bengal,19,WB", census[36]);
         }
+
+        [Test]
+        public void givenData_WhenCSVFileIterate_ThenReturnsNumberOfRecords()
+        {
+            CSVBuilderFactory factory = new CSVBuilderFactory();
+            CensusAnalyser censusAnalyser = (CensusAnalyser)factory.builder(INDIA_CENSUS_CSV_FILE_PATH, CENSUS_HEADER);
+            totalRecords count = new totalRecords(censusAnalyser.getCount);
+            int entries = count();
+            CensusAnalyser censusAnalyser1 = (CensusAnalyser)factory.builder(STATE_CODE_CSV_FILE_PATH, STATE_CODE_HEADER);
+            totalRecords count1 = new totalRecords(censusAnalyser1.getCount);
+            int entries1 = count1();
+            Assert.AreEqual(29, entries);
+            Assert.AreEqual(37, entries1);
+        }
     }
 }

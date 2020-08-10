@@ -1,5 +1,7 @@
 using CensusAnalyserProblem;
+using Newtonsoft.Json;
 using NUnit.Framework;
+using System.Collections.Generic;
 using static CensusAnalyserProblem.CensusAnalyser;
 
 namespace CensusAnalyserTest
@@ -119,6 +121,16 @@ namespace CensusAnalyserTest
             totalRecords count = new totalRecords(censusAnalyser.getCount);
             var result = Assert.Throws<CensusAnalyserException>(() => count());
             Assert.AreEqual(CensusAnalyserException.ExceptionType.INVALID_HEADER,result.exceptionType);
+        }
+
+        [Test]
+        public void givenData_SortedStates_InJsonFormat()
+        {
+            CSVBuilderFactory factory = new CSVBuilderFactory();
+            CensusAnalyser censusAnalyser = (CensusAnalyser)factory.builder(INDIA_CENSUS_CSV_FILE_PATH, CENSUS_HEADER);
+            string data = censusAnalyser.sortStatePopulationWise("State");
+            var census = JsonConvert.DeserializeObject<List<string>>(data);
+            Assert.AreEqual("Andhra Pradesh,49386799,162968,303", census[1]);
         }
     }
 }

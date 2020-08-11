@@ -1,18 +1,23 @@
-﻿using Newtonsoft.Json;
+﻿using Nancy.Json;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace CensusAnalyserProblem
 {
     public class CensusAnalyser : ICSVBuilder
     {
+        private static string CENSUS_HEADER = "State,Population,AreaInSqKm,DensityPerSqKm";
+        private static string STATE_CODE_HEADER = "SrNo,State Name,TIN,StateCode";
         public delegate int totalRecords();
         public string path;
         public string header;
-        List<string> censusList = new List<string>();
-        Dictionary<string, string> map = new Dictionary<string,string>();
+        List<CensusDTO> censusList = new List<CensusDTO>();
+        List<CensusDTO> sortedLists = new List<CensusDTO>();
+        Dictionary<string, CensusDTO> map = new Dictionary<string, CensusDTO>();
 
         public CensusAnalyser(string path, string header)
         {
@@ -27,31 +32,42 @@ namespace CensusAnalyserProblem
             if (Path.GetExtension(path) != ".csv")
                 throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.INVALID_FILE_TYPE);
 
-            IndiaCensusDAO censusDAO = new IndiaCensusDAOImpl();
-            map = (Dictionary<string, string>)censusDAO.GetTotalEntries(path);
-            if (map.ElementAt(0).Value != header)
+            string[] data = File.ReadAllLines(path);
+            if (data.ElementAt(0) != header)
                 throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.INVALID_HEADER);
-            foreach (string record in map.Values)
+            foreach (string record in data.Skip(1))
             {
+                string[] entries = record.Split(',');
                 if (record.Split(',').Length != header.Split(',').Length)
                     throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.INVALID_DELIMITER);
+
+                if (header.Equals(CENSUS_HEADER))
+                    map.Add(entries[0], new CensusDTO(new IndiaCensusDAO(entries[0], entries[1], entries[2], entries[3])));
+                else
+                    map.Add(entries[1], new CensusDTO(new IndiaStateCodeDAO(entries[0], entries[1], entries[2], entries[3])));
             }
-            return map.Count - 1;
+            return map.Count;
         }
 
-        public string SortStatePopulationWise(string column)
+        public string GetSortedData(string field)
         {
             getCount();
-            string[] demo = header.Split(',');
-            int index = Array.IndexOf(demo, column);
-            var data = map.Values.Skip(1);
-            IEnumerable<string> sort =
-            from entry in data
-            let feild = entry.Split(',')
-            orderby feild[index]
-            select entry;
-            censusList = sort.ToList<string>();
-            return JsonConvert.SerializeObject(censusList);
+            censusList = new List<CensusDTO>(map.Values);
+            sortedLists = getSoretdField(field, censusList);
+            return JsonConvert.SerializeObject(sortedLists);
+        }
+
+
+        public List<CensusDTO> getSoretdField(string filedName, List<CensusDTO> censusList)
+        {
+            switch (filedName)
+            {
+                case "state":
+                    return censusList.OrderBy(x => x.state).ToList();
+                case "stateCode":
+                    return censusList.OrderBy(x => x.stateCode).ToList();
+                default: return censusList;
+            }
         }
     }
 }

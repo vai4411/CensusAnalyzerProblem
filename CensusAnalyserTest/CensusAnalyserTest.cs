@@ -77,7 +77,7 @@ namespace CensusAnalyserTest
         public void givenIndianStateCode_WhenCSVFileIterate_ThenReturnsNumberOfRecords()
         {
             CSVBuilderFactory factory = new CSVBuilderFactory();
-            CensusAnalyser censusAnalyser = (CensusAnalyser)factory.builder(STATE_CODE_CSV_FILE_PATH,STATE_CODE_HEADER);
+            CensusAnalyser censusAnalyser = (CensusAnalyser)factory.builder(STATE_CODE_CSV_FILE_PATH, STATE_CODE_HEADER);
             totalRecords count = new totalRecords(censusAnalyser.getCount);
             int entries = count();
             Assert.AreEqual(37, entries);
@@ -128,9 +128,9 @@ namespace CensusAnalyserTest
         {
             CSVBuilderFactory factory = new CSVBuilderFactory();
             CensusAnalyser censusAnalyser = (CensusAnalyser)factory.builder(INDIA_CENSUS_CSV_FILE_PATH, CENSUS_HEADER);
-            string data = censusAnalyser.SortStatePopulationWise("State");
-            var census = JsonConvert.DeserializeObject<List<string>>(data);
-            Assert.AreEqual("Andhra Pradesh,49386799,162968,303", census[0]);
+            string data = censusAnalyser.GetSortedData("state");
+            IndiaCensusDAO[] census = JsonConvert.DeserializeObject<IndiaCensusDAO[]>(data);
+            Assert.AreEqual("Andhra Pradesh", census[0].state);
         }
 
         [Test]
@@ -138,9 +138,9 @@ namespace CensusAnalyserTest
         {
             CSVBuilderFactory factory = new CSVBuilderFactory();
             CensusAnalyser censusAnalyser = (CensusAnalyser)factory.builder(INDIA_CENSUS_CSV_FILE_PATH, CENSUS_HEADER);
-            string data = censusAnalyser.SortStatePopulationWise("State");
-            var census = JsonConvert.DeserializeObject<List<string>>(data);
-            Assert.AreEqual("West Bengal,91347736,88752,1029", census[28]);
+            string data = censusAnalyser.GetSortedData("state");
+            IndiaCensusDAO[] census = JsonConvert.DeserializeObject<IndiaCensusDAO[]>(data);
+            Assert.AreEqual("West Bengal", census[census.Length - 1].state);
         }
 
         [Test]
@@ -148,9 +148,9 @@ namespace CensusAnalyserTest
         {
             CSVBuilderFactory factory = new CSVBuilderFactory();
             CensusAnalyser censusAnalyser = (CensusAnalyser)factory.builder(STATE_CODE_CSV_FILE_PATH, STATE_CODE_HEADER);
-            string data = censusAnalyser.SortStatePopulationWise("StateCode");
-            var census = JsonConvert.DeserializeObject<List<string>>(data);
-            Assert.AreEqual("3,Andhra Pradesh New,37,AD", census[0]);
+            string data = censusAnalyser.GetSortedData("stateCode");
+            IndiaStateCodeDAO[] census = JsonConvert.DeserializeObject<IndiaStateCodeDAO[]>(data);
+            Assert.AreEqual("Andhra Pradesh New", census[0].stateName);
         }
 
         [Test]
@@ -158,23 +158,9 @@ namespace CensusAnalyserTest
         {
             CSVBuilderFactory factory = new CSVBuilderFactory();
             CensusAnalyser censusAnalyser = (CensusAnalyser)factory.builder(STATE_CODE_CSV_FILE_PATH, STATE_CODE_HEADER);
-            string data = censusAnalyser.SortStatePopulationWise("StateCode");
-            var census = JsonConvert.DeserializeObject<List<string>>(data);
-            Assert.AreEqual("37,West Bengal,19,WB", census[36]);
-        }
-
-        [Test]
-        public void givenData_WhenCSVFileIterate_ThenReturnsNumberOfRecords()
-        {
-            CSVBuilderFactory factory = new CSVBuilderFactory();
-            CensusAnalyser censusAnalyser = (CensusAnalyser)factory.builder(INDIA_CENSUS_CSV_FILE_PATH, CENSUS_HEADER);
-            totalRecords count = new totalRecords(censusAnalyser.getCount);
-            int entries = count();
-            CensusAnalyser censusAnalyser1 = (CensusAnalyser)factory.builder(STATE_CODE_CSV_FILE_PATH, STATE_CODE_HEADER);
-            totalRecords count1 = new totalRecords(censusAnalyser1.getCount);
-            int entries1 = count1();
-            Assert.AreEqual(29, entries);
-            Assert.AreEqual(37, entries1);
+            string data = censusAnalyser.GetSortedData("stateCode");
+            IndiaStateCodeDAO[] census = JsonConvert.DeserializeObject<IndiaStateCodeDAO[]>(data);
+            Assert.AreEqual("West Bengal", census[census.Length - 1].stateName);
         }
     }
 }

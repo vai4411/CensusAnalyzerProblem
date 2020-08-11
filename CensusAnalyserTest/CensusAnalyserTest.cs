@@ -202,5 +202,25 @@ namespace CensusAnalyserTest
             IndiaCensusDAO[] census = JsonConvert.DeserializeObject<IndiaCensusDAO[]>(data);
             Assert.AreEqual("Bihar", census[census.Length - 1].state);
         }
+
+        [Test]
+        public void givenData_WhenAreaPass_ThenSortDataInJsonFormatAndDisplayFirstState()
+        {
+            CSVBuilderFactory factory = new CSVBuilderFactory();
+            CensusAnalyser censusAnalyser = (CensusAnalyser)factory.builder(INDIA_CENSUS_CSV_FILE_PATH, CENSUS_HEADER);
+            string data = censusAnalyser.GetSortedData("area");
+            IndiaCensusDAO[] census = JsonConvert.DeserializeObject<IndiaCensusDAO[]>(data);
+            Assert.AreEqual("Goa", census[0].state);
+        }
+
+        [Test]
+        public void givenData_WhenAreaPass_ThenSortDataInJsonFormatAndDisplayLastState()
+        {
+            CSVBuilderFactory factory = new CSVBuilderFactory();
+            CensusAnalyser censusAnalyser = (CensusAnalyser)factory.builder(INDIA_CENSUS_CSV_FILE_PATH, CENSUS_HEADER);
+            string data = censusAnalyser.GetSortedData("area");
+            IndiaCensusDAO[] census = JsonConvert.DeserializeObject<IndiaCensusDAO[]>(data);
+            Assert.AreEqual("Rajasthan", census[census.Length - 1].state);
+        }
     }
 }

@@ -12,6 +12,7 @@ namespace CensusAnalyserProblem
     {
         private static string CENSUS_HEADER = "State,Population,AreaInSqKm,DensityPerSqKm";
         private static string STATE_CODE_HEADER = "SrNo,State Name,TIN,StateCode";
+        private static string JSON_FILE_PATH = "C:/Users/Vaibhav/source/repos/CensusAnalyser/CensusAnalyserTest/resources/csv/CensusData.json";
         public delegate int totalRecords();
         public string path;
         public string header;
@@ -54,7 +55,9 @@ namespace CensusAnalyserProblem
             getCount();
             censusList = new List<CensusDTO>(map.Values);
             sortedLists = getSoretdField(field, censusList);
-            return JsonConvert.SerializeObject(sortedLists);
+            string data = JsonConvert.SerializeObject(sortedLists);
+            File.WriteAllText(JSON_FILE_PATH, data);
+            return data;
         }
 
 
@@ -66,6 +69,8 @@ namespace CensusAnalyserProblem
                     return censusList.OrderBy(x => x.state).ToList();
                 case "stateCode":
                     return censusList.OrderBy(x => x.stateCode).ToList();
+                case "population":
+                    return censusList.OrderBy(x => x.population).ToList();
                 default: return censusList;
             }
         }

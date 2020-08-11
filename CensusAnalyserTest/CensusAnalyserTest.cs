@@ -182,5 +182,25 @@ namespace CensusAnalyserTest
             IndiaCensusDAO[] census = JsonConvert.DeserializeObject<IndiaCensusDAO[]>(data);
             Assert.AreEqual("Uttar Pradesh", census[census.Length - 1].state);
         }
+
+        [Test]
+        public void givenData_WhenPopulationDensityPass_ThenSortDataInJsonFormatAndDisplayFirstState()
+        {
+            CSVBuilderFactory factory = new CSVBuilderFactory();
+            CensusAnalyser censusAnalyser = (CensusAnalyser)factory.builder(INDIA_CENSUS_CSV_FILE_PATH, CENSUS_HEADER);
+            string data = censusAnalyser.GetSortedData("density");
+            IndiaCensusDAO[] census = JsonConvert.DeserializeObject<IndiaCensusDAO[]>(data);
+            Assert.AreEqual("Arunachal Pradesh", census[0].state);
+        }
+
+        [Test]
+        public void givenData_WhenPopulationDensityPass_ThenSortDataInJsonFormatAndDisplayLastState()
+        {
+            CSVBuilderFactory factory = new CSVBuilderFactory();
+            CensusAnalyser censusAnalyser = (CensusAnalyser)factory.builder(INDIA_CENSUS_CSV_FILE_PATH, CENSUS_HEADER);
+            string data = censusAnalyser.GetSortedData("density");
+            IndiaCensusDAO[] census = JsonConvert.DeserializeObject<IndiaCensusDAO[]>(data);
+            Assert.AreEqual("Bihar", census[census.Length - 1].state);
+        }
     }
 }

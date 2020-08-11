@@ -71,6 +71,8 @@ namespace CensusAnalyserProblem
                     return censusList.OrderBy(x => x.stateCode).ToList();
                 case "population":
                     return censusList.OrderBy(x => x.population).ToList();
+                case "density":
+                    return censusList.OrderBy(x => x.density).ToList();
                 default: return censusList;
             }
         }

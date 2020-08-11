@@ -10,9 +10,9 @@ namespace CensusAnalyserProblem
 {
     public class CensusAnalyser : ICSVBuilder
     {
-        private static string CENSUS_HEADER = "State,Population,AreaInSqKm,DensityPerSqKm";
-        private static string STATE_CODE_HEADER = "SrNo,State Name,TIN,StateCode";
-        private static string JSON_FILE_PATH = "C:/Users/Vaibhav/source/repos/CensusAnalyser/CensusAnalyserTest/resources/csv/CensusData.json";
+        private static readonly string CENSUS_HEADER = "State,Population,AreaInSqKm,DensityPerSqKm";
+        private static readonly string STATE_CODE_HEADER = "SrNo,State Name,TIN,StateCode";
+        private static readonly string JSON_FILE_PATH = "C:/Users/Vaibhav/source/repos/CensusAnalyser/CensusAnalyserTest/resources/csv/CensusData.json";
         public delegate int totalRecords();
         public string path;
         public string header;
@@ -45,7 +45,11 @@ namespace CensusAnalyserProblem
                 if (header.Equals(CENSUS_HEADER))
                     map.Add(entries[0], new CensusDTO(new IndiaCensusDAO(entries[0], entries[1], entries[2], entries[3])));
                 else
-                    map.Add(entries[1], new CensusDTO(new IndiaStateCodeDAO(entries[0], entries[1], entries[2], entries[3])));
+                    if(header.Equals(STATE_CODE_HEADER))
+                        map.Add(entries[1], new CensusDTO(new IndiaStateCodeDAO(entries[0], entries[1], entries[2], entries[3])));
+                    else
+                        map.Add(entries[1], new CensusDTO(new USCensusDAO(entries[0], entries[1], entries[2]
+                            , entries[3], entries[4], entries[5], entries[6], entries[7], entries[8])));
             }
             return map.Count;
         }
@@ -59,7 +63,6 @@ namespace CensusAnalyserProblem
             File.WriteAllText(JSON_FILE_PATH, data);
             return data;
         }
-
 
         public List<CensusDTO> getSoretdField(string filedName, List<CensusDTO> censusList)
         {

@@ -13,6 +13,12 @@ namespace CensusAnalyserProblem
         public long population;
         public long area;
         public long density;
+        public long housingUnits;
+        public double totalArea;
+        public double waterArea;
+        public double landArea;
+        public double populationDensity;
+        public double housingDensity;
 
         public CensusDTO(IndiaCensusDAO indiaCensusDAO)
         {
@@ -28,6 +34,19 @@ namespace CensusAnalyserProblem
             this.state = stateCodeDAO.stateName;
             this.tin = stateCodeDAO.tin;
             this.stateCode = stateCodeDAO.stateCode;
+        }
+
+        public CensusDTO(USCensusDAO usCensusDAO)
+        {
+            this.stateCode = usCensusDAO.id;
+            this.state = usCensusDAO.name;
+            this.population = usCensusDAO.population;
+            this.housingUnits = usCensusDAO.housingUnits;
+            this.totalArea = usCensusDAO.totalArea;
+            this.waterArea = usCensusDAO.waterArea;
+            this.landArea = usCensusDAO.landArea;
+            this.populationDensity = usCensusDAO.populationDensity;
+            this.housingDensity = usCensusDAO.housingDensity;
         }
     }
 }

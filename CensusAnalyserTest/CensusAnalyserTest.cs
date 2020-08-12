@@ -299,5 +299,45 @@ namespace CensusAnalyserTest
             USCensusCSV[] census = JsonConvert.DeserializeObject<USCensusCSV[]>(data);
             Assert.AreEqual("California", census[0].name);
         }
+
+        //sort by population density and display less populated state
+        [Test]
+        public void GivenUSCensusData_WhenPopulationDensityPassAsSortingParameter_ThenSortDataInJsonFormatAndDisplayLessPopulateState()
+        {
+            CensusAnalyser censusAnalyser = new CensusAnalyser(CountryEnum.US, US_CENSUS_CSV_FILE_PATH, US_CENSUS_HEADER);
+            string data = censusAnalyser.GetSortedData("populationDensity", "asc");
+            USCensusCSV[] census = JsonConvert.DeserializeObject<USCensusCSV[]>(data);
+            Assert.AreEqual("Alaska", census[0].name);
+        }
+
+        //sort by population density and display most populated state
+        [Test]
+        public void GivenUSCensusData_WhenPopulationDensityPassAsSortingParameter_ThenSortDataInJsonFormatAndDisplayMostPopulateState()
+        {
+            CensusAnalyser censusAnalyser = new CensusAnalyser(CountryEnum.US, US_CENSUS_CSV_FILE_PATH, US_CENSUS_HEADER);
+            string data = censusAnalyser.GetSortedData("populationDensity", "desc");
+            USCensusCSV[] census = JsonConvert.DeserializeObject<USCensusCSV[]>(data);
+            Assert.AreEqual("District of Columbia", census[0].name);
+        }
+
+        //sort by area and display less populated state
+        [Test]
+        public void GivenUSCensusData_WhenAreaPassAsSortingParameter_ThenSortDataInJsonFormatAndDisplayLessPopulateState()
+        {
+            CensusAnalyser censusAnalyser = new CensusAnalyser(CountryEnum.US, US_CENSUS_CSV_FILE_PATH, US_CENSUS_HEADER);
+            string data = censusAnalyser.GetSortedData("area", "asc");
+            USCensusCSV[] census = JsonConvert.DeserializeObject<USCensusCSV[]>(data);
+            Assert.AreEqual("Alabama", census[0].name);
+        }
+
+        //sort by area and display most populated state
+        [Test]
+        public void GivenUSCensusData_WhenAreaPassAsSortingParameter_ThenSortDataInJsonFormatAndDisplayMostPopulateState()
+        {
+            CensusAnalyser censusAnalyser = new CensusAnalyser(CountryEnum.US, US_CENSUS_CSV_FILE_PATH, US_CENSUS_HEADER);
+            string data = censusAnalyser.GetSortedData("area", "desc");
+            USCensusCSV[] census = JsonConvert.DeserializeObject<USCensusCSV[]>(data);
+            Assert.AreEqual("Wyoming", census[0].name);
+        }
     }
 }

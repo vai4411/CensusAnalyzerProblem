@@ -51,6 +51,7 @@ namespace CensusAnalyserProblem
                 "population" => censusList.OrderBy(x => x.population).ToList(),
                 "density" => censusList.OrderBy(x => x.density).ToList(),
                 "area" => censusList.OrderBy(x => x.area).ToList(),
+                "populationDensity" => censusList.OrderBy(x => x.populationDensity).ToList(),
                 _ => censusList,
             };
         }

@@ -27,7 +27,7 @@ namespace CensusAnalyserTest
 
         //load indian census data
         [Test]
-        public void givenIndianCensus_WhenCSVFileIterate_ThenReturnsNumberOfRecords()
+        public void GivenIndianCensus_WhenCSVFileIterate_ThenReturnsNumberOfRecords()
         {
             CSVBuilderFactory factory = new CSVBuilderFactory();
             CensusAnalyser censusAnalyser = (CensusAnalyser)factory.builder(INDIA_CENSUS_CSV_FILE_PATH,CENSUS_HEADER);
@@ -38,7 +38,7 @@ namespace CensusAnalyserTest
 
         //file not found exception
         [Test]
-        public void givenIndiaCensusData_WhenWrongFile_ThenThrowException()
+        public void GivenIndiaCensusData_WhenWrongFile_ThenThrowException()
         {
             CSVBuilderFactory factory = new CSVBuilderFactory();
             CensusAnalyser censusAnalyser = (CensusAnalyser)factory.builder(Wrong_FILE_PATH,CENSUS_HEADER);
@@ -49,7 +49,7 @@ namespace CensusAnalyserTest
 
         //invalid file type exception
         [Test]
-        public void givenIndiaCensusData_WhenWrongFileType_ThenThrowException()
+        public void GivenIndiaCensusData_WhenWrongFileType_ThenThrowException()
         {
             CSVBuilderFactory factory = new CSVBuilderFactory();
             CensusAnalyser censusAnalyser = (CensusAnalyser)factory.builder(INVALID_FILE_TYPE,CENSUS_HEADER);
@@ -60,7 +60,7 @@ namespace CensusAnalyserTest
 
         //invalid delimiter exception
         [Test]
-        public void givenIndiaCensusData_WhenWrongDelimiterFile_ThenThrowException()
+        public void GivenIndiaCensusData_WhenWrongDelimiterFile_ThenThrowException()
         {
             CSVBuilderFactory factory = new CSVBuilderFactory();
             CensusAnalyser censusAnalyser = (CensusAnalyser)factory.builder(WRONG_DELIMITER_FILE_PATH,CENSUS_HEADER);
@@ -71,7 +71,7 @@ namespace CensusAnalyserTest
 
         //invalid header exception
         [Test]
-        public void givenIndiaCensusData_WhenWrongFileHeader_ThenThrowException()
+        public void GivenIndiaCensusData_WhenWrongFileHeader_ThenThrowException()
         {
             CSVBuilderFactory factory = new CSVBuilderFactory();
             CensusAnalyser censusAnalyser = (CensusAnalyser)factory.builder(INDIA_CENSUS_CSV_FILE_PATH,WRONG_HEADER_FILE_PATH);
@@ -82,7 +82,7 @@ namespace CensusAnalyserTest
 
         //load indian state code data
         [Test]
-        public void givenIndianStateCode_WhenCSVFileIterate_ThenReturnsNumberOfRecords()
+        public void GivenIndianStateCode_WhenCSVFileIterate_ThenReturnsNumberOfRecords()
         {
             CSVBuilderFactory factory = new CSVBuilderFactory();
             CensusAnalyser censusAnalyser = (CensusAnalyser)factory.builder(STATE_CODE_CSV_FILE_PATH, STATE_CODE_HEADER);
@@ -93,7 +93,7 @@ namespace CensusAnalyserTest
 
         //file not found exception
         [Test]
-        public void givenIndianStateCode_WhenWrongFile_ThenThrowException()
+        public void GivenIndianStateCode_WhenWrongFile_ThenThrowException()
         {
             CSVBuilderFactory factory = new CSVBuilderFactory();
             CensusAnalyser censusAnalyser = (CensusAnalyser)factory.builder(Wrong_FILE_PATH, STATE_CODE_HEADER);
@@ -104,7 +104,7 @@ namespace CensusAnalyserTest
 
         //invalid file type exception
         [Test]
-        public void givenIndianStateCode_WhenWrongFileType_ThenThrowException()
+        public void GivenIndianStateCode_WhenWrongFileType_ThenThrowException()
         {
             CSVBuilderFactory factory = new CSVBuilderFactory();
             CensusAnalyser censusAnalyser = (CensusAnalyser)factory.builder(INVALID_FILE_TYPE, STATE_CODE_HEADER);
@@ -115,7 +115,7 @@ namespace CensusAnalyserTest
 
         //invalid delimiter exception
         [Test]
-        public void givenIndianStateCode_WhenWrongDelimiterFile_ThenThrowException()
+        public void GivenIndianStateCode_WhenWrongDelimiterFile_ThenThrowException()
         {
             CSVBuilderFactory factory = new CSVBuilderFactory();
             CensusAnalyser censusAnalyser = (CensusAnalyser)factory.builder(STATE_CODE_WRONG_DELIMITER_FILE_PATH, STATE_CODE_HEADER);
@@ -126,7 +126,7 @@ namespace CensusAnalyserTest
 
         //invalid header exception
         [Test]
-        public void givenIndianStateCode_WhenWrongFileHeader_ThenThrowException()
+        public void GivenIndianStateCode_WhenWrongFileHeader_ThenThrowException()
         {
             CSVBuilderFactory factory = new CSVBuilderFactory();
             CensusAnalyser censusAnalyser = (CensusAnalyser)factory.builder(STATE_CODE_CSV_FILE_PATH,WRONG_HEADER_FILE_PATH);
@@ -137,117 +137,117 @@ namespace CensusAnalyserTest
 
         //sort by state and display first state
         [Test]
-        public void givenData_WhenCensusStatePassAsSortingParameter_ThenSortDataInJsonFormatAndDisplayFirstState()
+        public void GivenData_WhenCensusStatePassAsSortingParameter_ThenSortDataInJsonFormatAndDisplayFirstState()
         {
             CSVBuilderFactory factory = new CSVBuilderFactory();
             CensusAnalyser censusAnalyser = (CensusAnalyser)factory.builder(INDIA_CENSUS_CSV_FILE_PATH, CENSUS_HEADER);
-            string data = censusAnalyser.GetSortedData("state");
-            IndiaCensusDAO[] census = JsonConvert.DeserializeObject<IndiaCensusDAO[]>(data);
+            string data = censusAnalyser.GetSortedData("state","asc");
+            IndiaCensusCSV[] census = JsonConvert.DeserializeObject<IndiaCensusCSV[]>(data);
             Assert.AreEqual("Andhra Pradesh", census[0].state);
         }
 
         //sort by state and display last state
         [Test]
-        public void givenData_WhenCensusStatePassAsSortingParameter_ThenSortDataInJsonFormatAndDisplayLastState()
+        public void GivenData_WhenCensusStatePassAsSortingParameter_ThenSortDataInJsonFormatAndDisplayLastState()
         {
             CSVBuilderFactory factory = new CSVBuilderFactory();
             CensusAnalyser censusAnalyser = (CensusAnalyser)factory.builder(INDIA_CENSUS_CSV_FILE_PATH, CENSUS_HEADER);
-            string data = censusAnalyser.GetSortedData("state");
-            IndiaCensusDAO[] census = JsonConvert.DeserializeObject<IndiaCensusDAO[]>(data);
-            Assert.AreEqual("West Bengal", census[census.Length - 1].state);
+            string data = censusAnalyser.GetSortedData("state","desc");
+            IndiaCensusCSV[] census = JsonConvert.DeserializeObject<IndiaCensusCSV[]>(data);
+            Assert.AreEqual("West Bengal", census[0].state);
         }
 
         //sort by state code and display first state
         [Test]
-        public void givenData_WhenStateCodePassAsSortingParameter_ThenSortDataInJsonFormatAndDisplayFirstState()
+        public void GivenData_WhenStateCodePassAsSortingParameter_ThenSortDataInJsonFormatAndDisplayFirstState()
         {
             CSVBuilderFactory factory = new CSVBuilderFactory();
             CensusAnalyser censusAnalyser = (CensusAnalyser)factory.builder(STATE_CODE_CSV_FILE_PATH, STATE_CODE_HEADER);
-            string data = censusAnalyser.GetSortedData("stateCode");
-            IndiaStateCodeDAO[] census = JsonConvert.DeserializeObject<IndiaStateCodeDAO[]>(data);
+            string data = censusAnalyser.GetSortedData("stateCode","asc");
+            IndiaStateCodeCSV[] census = JsonConvert.DeserializeObject<IndiaStateCodeCSV[]>(data);
             Assert.AreEqual("Andhra Pradesh New", census[0].stateName);
         }
 
         //sort by state code and display last state
         [Test]
-        public void givenData_WhenStateCodePassAsSortingParameter_ThenSortDataInJsonFormatAndDisplayLastState()
+        public void GivenData_WhenStateCodePassAsSortingParameter_ThenSortDataInJsonFormatAndDisplayLastState()
         {
             CSVBuilderFactory factory = new CSVBuilderFactory();
             CensusAnalyser censusAnalyser = (CensusAnalyser)factory.builder(STATE_CODE_CSV_FILE_PATH, STATE_CODE_HEADER);
-            string data = censusAnalyser.GetSortedData("stateCode");
-            IndiaStateCodeDAO[] census = JsonConvert.DeserializeObject<IndiaStateCodeDAO[]>(data);
-            Assert.AreEqual("West Bengal", census[census.Length - 1].stateName);
+            string data = censusAnalyser.GetSortedData("stateCode","desc");
+            IndiaStateCodeCSV[] census = JsonConvert.DeserializeObject<IndiaStateCodeCSV[]>(data);
+            Assert.AreEqual("West Bengal", census[0].stateName);
         }
 
         //sort by population and display less populated state
         [Test]
-        public void givenData_WhenPopulationPassAsSortingParameter_ThenSortDataInJsonFormatAndDisplayLessPopulateState()
+        public void GivenData_WhenPopulationPassAsSortingParameter_ThenSortDataInJsonFormatAndDisplayLessPopulateState()
         {
             CSVBuilderFactory factory = new CSVBuilderFactory();
             CensusAnalyser censusAnalyser = (CensusAnalyser)factory.builder(INDIA_CENSUS_CSV_FILE_PATH, CENSUS_HEADER);
-            string data = censusAnalyser.GetSortedData("population");
-            IndiaCensusDAO[] census = JsonConvert.DeserializeObject<IndiaCensusDAO[]>(data);
+            string data = censusAnalyser.GetSortedData("population","asc");
+            IndiaCensusCSV[] census = JsonConvert.DeserializeObject<IndiaCensusCSV[]>(data);
             Assert.AreEqual("Sikkim", census[0].state);
         }
 
         //sort by population and display most populated state
         [Test]
-        public void givenData_WhenPopulationPassAsSortingParameter_ThenSortDataInJsonFormatAndDisplayMostPopulateState()
+        public void GivenData_WhenPopulationPassAsSortingParameter_ThenSortDataInJsonFormatAndDisplayMostPopulateState()
         {
             CSVBuilderFactory factory = new CSVBuilderFactory();
             CensusAnalyser censusAnalyser = (CensusAnalyser)factory.builder(INDIA_CENSUS_CSV_FILE_PATH, CENSUS_HEADER);
-            string data = censusAnalyser.GetSortedData("population");
-            IndiaCensusDAO[] census = JsonConvert.DeserializeObject<IndiaCensusDAO[]>(data);
-            Assert.AreEqual("Uttar Pradesh", census[census.Length - 1].state);
+            string data = censusAnalyser.GetSortedData("population","desc");
+            IndiaCensusCSV[] census = JsonConvert.DeserializeObject<IndiaCensusCSV[]>(data);
+            Assert.AreEqual("Uttar Pradesh", census[0].state);
         }
 
         //sort by population density and display less population density state
         [Test]
-        public void givenData_WhenPopulationDensityPassAsSortingParameter_ThenSortDataInJsonFormatAndDisplayLessPopulationDensityState()
+        public void GivenData_WhenPopulationDensityPassAsSortingParameter_ThenSortDataInJsonFormatAndDisplayLessPopulationDensityState()
         {
             CSVBuilderFactory factory = new CSVBuilderFactory();
             CensusAnalyser censusAnalyser = (CensusAnalyser)factory.builder(INDIA_CENSUS_CSV_FILE_PATH, CENSUS_HEADER);
-            string data = censusAnalyser.GetSortedData("density");
-            IndiaCensusDAO[] census = JsonConvert.DeserializeObject<IndiaCensusDAO[]>(data);
+            string data = censusAnalyser.GetSortedData("density","asc");
+            IndiaCensusCSV[] census = JsonConvert.DeserializeObject<IndiaCensusCSV[]>(data);
             Assert.AreEqual("Arunachal Pradesh", census[0].state);
         }
 
         //sort by population density and display less population density state
         [Test]
-        public void givenData_WhenPopulationDensityPassAsSortingParameter_ThenSortDataInJsonFormatAndDisplayMostPopulationDensityState()
+        public void GivenData_WhenPopulationDensityPassAsSortingParameter_ThenSortDataInJsonFormatAndDisplayMostPopulationDensityState()
         {
             CSVBuilderFactory factory = new CSVBuilderFactory();
             CensusAnalyser censusAnalyser = (CensusAnalyser)factory.builder(INDIA_CENSUS_CSV_FILE_PATH, CENSUS_HEADER);
-            string data = censusAnalyser.GetSortedData("density");
-            IndiaCensusDAO[] census = JsonConvert.DeserializeObject<IndiaCensusDAO[]>(data);
-            Assert.AreEqual("Bihar", census[census.Length - 1].state);
+            string data = censusAnalyser.GetSortedData("density","desc");
+            IndiaCensusCSV[] census = JsonConvert.DeserializeObject<IndiaCensusCSV[]>(data);
+            Assert.AreEqual("Bihar", census[0].state);
         }
 
         //sort by area and display less area state
         [Test]
-        public void givenData_WhenAreaPassAsSortingParameter_ThenSortDataInJsonFormatAndDisplayLessAreaState()
+        public void GivenData_WhenAreaPassAsSortingParameter_ThenSortDataInJsonFormatAndDisplayLessAreaState()
         {
             CSVBuilderFactory factory = new CSVBuilderFactory();
             CensusAnalyser censusAnalyser = (CensusAnalyser)factory.builder(INDIA_CENSUS_CSV_FILE_PATH, CENSUS_HEADER);
-            string data = censusAnalyser.GetSortedData("area");
-            IndiaCensusDAO[] census = JsonConvert.DeserializeObject<IndiaCensusDAO[]>(data);
+            string data = censusAnalyser.GetSortedData("area","asc");
+            IndiaCensusCSV[] census = JsonConvert.DeserializeObject<IndiaCensusCSV[]>(data);
             Assert.AreEqual("Goa", census[0].state);
         }
 
         //sort by area and display most area state
         [Test]
-        public void givenData_WhenAreaPassAsSortingParameter_ThenSortDataInJsonFormatAndDisplayMostAreaState()
+        public void GivenData_WhenAreaPassAsSortingParameter_ThenSortDataInJsonFormatAndDisplayMostAreaState()
         {
             CSVBuilderFactory factory = new CSVBuilderFactory();
             CensusAnalyser censusAnalyser = (CensusAnalyser)factory.builder(INDIA_CENSUS_CSV_FILE_PATH, CENSUS_HEADER);
-            string data = censusAnalyser.GetSortedData("area");
-            IndiaCensusDAO[] census = JsonConvert.DeserializeObject<IndiaCensusDAO[]>(data);
-            Assert.AreEqual("Rajasthan", census[census.Length - 1].state);
+            string data = censusAnalyser.GetSortedData("area","desc");
+            IndiaCensusCSV[] census = JsonConvert.DeserializeObject<IndiaCensusCSV[]>(data);
+            Assert.AreEqual("Rajasthan", census[0].state);
         }
 
         //load us census data
         [Test]
-        public void givenUSCensus_WhenCSVFileLoad_ThenReturnsNumberOfRecords()
+        public void GivenUSCensus_WhenCSVFileLoad_ThenReturnsNumberOfRecords()
         {
             CSVBuilderFactory factory = new CSVBuilderFactory();
             CensusAnalyser censusAnalyser = (CensusAnalyser)factory.builder(US_CENSUS_CSV_FILE_PATH, US_CENSUS_HEADER);

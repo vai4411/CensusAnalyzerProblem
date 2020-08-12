@@ -20,7 +20,7 @@ namespace CensusAnalyserProblem
         public double populationDensity;
         public double housingDensity;
 
-        public CensusDTO(IndiaCensusDAO indiaCensusDAO)
+        public CensusDTO(IndiaCensusCSV indiaCensusDAO)
         {
             this.state = indiaCensusDAO.state;
             this.population = indiaCensusDAO.population;
@@ -28,7 +28,7 @@ namespace CensusAnalyserProblem
             this.density = indiaCensusDAO.density;
         }
 
-        public CensusDTO(IndiaStateCodeDAO stateCodeDAO)
+        public CensusDTO(IndiaStateCodeCSV stateCodeDAO)
         {
             this.sr = stateCodeDAO.sr;
             this.state = stateCodeDAO.stateName;
@@ -36,7 +36,7 @@ namespace CensusAnalyserProblem
             this.stateCode = stateCodeDAO.stateCode;
         }
 
-        public CensusDTO(USCensusDAO usCensusDAO)
+        public CensusDTO(USCensusCSV usCensusDAO)
         {
             this.stateCode = usCensusDAO.id;
             this.state = usCensusDAO.name;

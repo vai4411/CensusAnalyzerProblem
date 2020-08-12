@@ -4,14 +4,14 @@ using System.Text;
 
 namespace CensusAnalyserProblem
 {
-    public class IndiaStateCodeDAO
+    public class IndiaStateCodeCSV
     {
         public int sr;
         public string stateName;
         public int tin;
         public string stateCode;
 
-        public IndiaStateCodeDAO(string sr, string state, string tin, string stateCode)
+        public IndiaStateCodeCSV(string sr, string state, string tin, string stateCode)
         {
             this.sr = Int32.Parse(sr);
             this.stateName = state;

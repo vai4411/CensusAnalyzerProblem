@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CensusAnalyserProblem
 {
-    public class USCensusDAO
+    public class USCensusCSV
     {
         public string id;
         public string name;
@@ -16,7 +16,7 @@ namespace CensusAnalyserProblem
         public double populationDensity;
         public double housingDensity;
 
-        public USCensusDAO(string id, string name, string population, string housingUnits, string totalArea, 
+        public USCensusCSV(string id, string name, string population, string housingUnits, string totalArea, 
             string waterArea, string landArea, string populationDensity, string housingDensity)
         {
             this.id = id;

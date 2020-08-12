@@ -43,22 +43,25 @@ namespace CensusAnalyserProblem
                     throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.INVALID_DELIMITER);
 
                 if (header.Equals(CENSUS_HEADER))
-                    map.Add(entries[0], new CensusDTO(new IndiaCensusDAO(entries[0], entries[1], entries[2], entries[3])));
+                    map.Add(entries[0], new CensusDTO(new IndiaCensusCSV(entries[0], entries[1], entries[2], entries[3])));
                 else
-                    if(header.Equals(STATE_CODE_HEADER))
-                        map.Add(entries[1], new CensusDTO(new IndiaStateCodeDAO(entries[0], entries[1], entries[2], entries[3])));
-                    else
-                        map.Add(entries[1], new CensusDTO(new USCensusDAO(entries[0], entries[1], entries[2]
-                            , entries[3], entries[4], entries[5], entries[6], entries[7], entries[8])));
+                    if (header.Equals(STATE_CODE_HEADER))
+                    map.Add(entries[1], new CensusDTO(new IndiaStateCodeCSV(entries[0], entries[1], entries[2], entries[3])));
+                else
+                    map.Add(entries[1], new CensusDTO(new USCensusCSV(entries[0], entries[1], entries[2]
+                        , entries[3], entries[4], entries[5], entries[6], entries[7], entries[8])));
             }
             return map.Count;
         }
 
-        public string GetSortedData(string field)
+        public string GetSortedData(string field, string order)
         {
             getCount();
             censusList = new List<CensusDTO>(map.Values);
             sortedLists = getSoretdField(field, censusList);
+
+            if (order.Equals("desc"))
+                sortedLists.Reverse();
             string data = JsonConvert.SerializeObject(sortedLists);
             File.WriteAllText(JSON_FILE_PATH, data);
             return data;

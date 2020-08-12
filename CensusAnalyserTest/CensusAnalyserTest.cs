@@ -7,6 +7,7 @@ namespace CensusAnalyserTest
 {
     public class Tests
     {
+        //india census and state code file paths
         private static readonly string INDIA_CENSUS_CSV_FILE_PATH = "C:/Users/Vaibhav/source/repos/CensusAnalyser/CensusAnalyserTest/resources/csv/IndiaStateCensusData.csv";
         private static readonly string Wrong_FILE_PATH = "C:/Users/Vaibhav/source/repos/CensusAnalyser/CensusAnalyser/resources/StateCensusData.csv";
         private static readonly string INVALID_FILE_TYPE = "C:/Users/Vaibhav/source/repos/CensusAnalyser/CensusAnalyserTest/resources/csv/IndiaStateCensusData.pdf";
@@ -14,7 +15,12 @@ namespace CensusAnalyserTest
         private static readonly string WRONG_HEADER_FILE_PATH = "C:/Users/Vaibhav/source/repos/CensusAnalyser/CensusAnalyserTest/resources/csv/IndiaStateCodeHeader.csv";
         private static readonly string STATE_CODE_CSV_FILE_PATH = "C:/Users/Vaibhav/source/repos/CensusAnalyser/CensusAnalyserTest/resources/csv/IndiaStateCode.csv";
         private static readonly string STATE_CODE_WRONG_DELIMITER_FILE_PATH = "C:/Users/Vaibhav/source/repos/CensusAnalyser/CensusAnalyserTest/resources/csv/IndiaStateCodeDelimiter.csv";
+       
+        //us census file paths
         private static readonly string US_CENSUS_CSV_FILE_PATH = "C:/Users/Vaibhav/source/repos/CensusAnalyser/CensusAnalyserTest/resources/csv/USCensusData.csv";
+        private static readonly string US_CENSUS_WRONG_DELIMITER_FILE_PATH = "C:/Users/Vaibhav/source/repos/CensusAnalyser/CensusAnalyserTest/resources/csv/USCensusDataDelimiter.csv";
+        
+        //header files
         private static readonly string CENSUS_HEADER = "State,Population,AreaInSqKm,DensityPerSqKm";
         private static readonly string STATE_CODE_HEADER = "SrNo,State Name,TIN,StateCode";
         private static readonly string US_CENSUS_HEADER = "StateId,State,Population,HousingUnits,TotalArea,WaterArea,LandArea,PopulationDensity,HousingDensity";
@@ -232,6 +238,66 @@ namespace CensusAnalyserTest
             totalRecords count = new totalRecords(censusAnalyser.getCount);
             int entries = count();
             Assert.AreEqual(51, entries);
+        }
+
+        //file not found exception
+        [Test]
+        public void GivenUSCensusData_WhenWrongFile_ThenThrowException()
+        {
+            CensusAnalyser censusAnalyser = new CensusAnalyser(CountryEnum.US, Wrong_FILE_PATH, US_CENSUS_HEADER);
+            totalRecords count = new totalRecords(censusAnalyser.getCount);
+            var result = Assert.Throws<CensusAnalyserException>(() => count());
+            Assert.AreEqual(CensusAnalyserException.ExceptionType.FILE_NOT_FOUND, result.exceptionType);
+        }
+
+        //invalid file type exception
+        [Test]
+        public void GivenUSCensusData_WhenWrongFileType_ThenThrowException()
+        {
+            CensusAnalyser censusAnalyser = new CensusAnalyser(CountryEnum.US, INVALID_FILE_TYPE, US_CENSUS_HEADER);
+            totalRecords count = new totalRecords(censusAnalyser.getCount);
+            var result = Assert.Throws<CensusAnalyserException>(() => count());
+            Assert.AreEqual(CensusAnalyserException.ExceptionType.INVALID_FILE_TYPE, result.exceptionType);
+        }
+
+        //invalid delimiter exception
+        [Test]
+        public void GivenUSCensusData_WhenWrongDelimiterFile_ThenThrowException()
+        {
+            CensusAnalyser censusAnalyser = new CensusAnalyser(CountryEnum.INDIA, US_CENSUS_WRONG_DELIMITER_FILE_PATH, US_CENSUS_HEADER);
+            totalRecords count = new totalRecords(censusAnalyser.getCount);
+            var result = Assert.Throws<CensusAnalyserException>(() => count());
+            Assert.AreEqual(CensusAnalyserException.ExceptionType.INVALID_DELIMITER, result.exceptionType);
+        }
+
+        //invalid header exception
+        [Test]
+        public void GivenUSCensusData_WhenWrongFileHeader_ThenThrowException()
+        {
+            CensusAnalyser censusAnalyser = new CensusAnalyser(CountryEnum.US, US_CENSUS_CSV_FILE_PATH, WRONG_HEADER_FILE_PATH);
+            totalRecords count = new totalRecords(censusAnalyser.getCount);
+            var result = Assert.Throws<CensusAnalyserException>(() => count());
+            Assert.AreEqual(CensusAnalyserException.ExceptionType.INVALID_HEADER, result.exceptionType);
+        }
+
+        //sort by population and display less populated state
+        [Test]
+        public void GivenUSCensusData_WhenPopulationPassAsSortingParameter_ThenSortDataInJsonFormatAndDisplayLessPopulateState()
+        {
+            CensusAnalyser censusAnalyser = new CensusAnalyser(CountryEnum.US, US_CENSUS_CSV_FILE_PATH, US_CENSUS_HEADER);
+            string data = censusAnalyser.GetSortedData("population", "asc");
+            USCensusCSV[] census = JsonConvert.DeserializeObject<USCensusCSV[]>(data);
+            Assert.AreEqual("Wyoming", census[0].name);
+        }
+
+        //sort by population and display most populated state
+        [Test]
+        public void GivenUSCensusData_WhenPopulationPassAsSortingParameter_ThenSortDataInJsonFormatAndDisplayMostPopulateState()
+        {
+            CensusAnalyser censusAnalyser = new CensusAnalyser(CountryEnum.US, US_CENSUS_CSV_FILE_PATH, US_CENSUS_HEADER);
+            string data = censusAnalyser.GetSortedData("population", "desc");
+            USCensusCSV[] census = JsonConvert.DeserializeObject<USCensusCSV[]>(data);
+            Assert.AreEqual("California", census[0].name);
         }
     }
 }

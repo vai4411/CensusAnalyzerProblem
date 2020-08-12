@@ -14,7 +14,8 @@ namespace CensusAnalyserProblem
                    INVALID_HEADER,
                    INVALID_DELIMITER,
                    INVALID_FILE_TYPE,
-               }
+                   INVALID_COUNTRY
+        }
                public ExceptionType exceptionType;
 
         public CensusAnalyserException(ExceptionType exceptionType) : base(exceptionType.ToString()) 

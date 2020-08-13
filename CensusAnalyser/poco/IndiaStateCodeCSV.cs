@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿// <copyright file="IndiaStateCodeCSV.cs" company="Bridgelabz">
+// Copyright (c) Bridgelabz. All rights reserved.
+// </copyright>
 
 namespace CensusAnalyserProblem
 {
@@ -13,9 +13,9 @@ namespace CensusAnalyserProblem
 
         public IndiaStateCodeCSV(string sr, string state, string tin, string stateCode)
         {
-            this.sr = Int32.Parse(sr);
+            this.sr = int.Parse(sr);
             this.stateName = state;
-            this.tin = Int32.Parse(tin);
+            this.tin = int.Parse(tin);
             this.stateCode = stateCode;
         }
     }

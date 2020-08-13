@@ -1,5 +1,12 @@
-﻿namespace CensusAnalyserProblem
+﻿// <copyright file="CensusDTO.cs" company="Bridgelabz">
+// Copyright (c) Bridgelabz. All rights reserved.
+// </copyright>
+
+namespace CensusAnalyserProblem
 {
+    /// <summary>
+    /// This class used as DTO class.
+    /// </summary>
     public class CensusDTO
     {
         public string state;
@@ -16,6 +23,10 @@
         public double populationDensity;
         public double housingDensity;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CensusDTO"/> class.
+        /// </summary>
+        /// <param name="indiaCensusDAO">IndiaCensusCSV.</param>
         public CensusDTO(IndiaCensusCSV indiaCensusDAO)
         {
             this.state = indiaCensusDAO.state;
@@ -24,6 +35,10 @@
             this.density = indiaCensusDAO.density;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CensusDTO"/> class.
+        /// </summary>
+        /// <param name="indiaCensusDAO">IndiaStateCodeCSV.</param>
         public CensusDTO(IndiaStateCodeCSV stateCodeDAO)
         {
             this.sr = stateCodeDAO.sr;
@@ -32,6 +47,10 @@
             this.stateCode = stateCodeDAO.stateCode;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CensusDTO"/> class.
+        /// </summary>
+        /// <param name="indiaCensusDAO">USCensusCSV.</param>
         public CensusDTO(USCensusCSV usCensusDAO)
         {
             this.stateCode = usCensusDAO.stateCode;

@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿// <copyright file="USCensusCSV.cs" company="Bridgelabz">
+// Copyright (c) Bridgelabz. All rights reserved.
+// </copyright>
 
 namespace CensusAnalyserProblem
 {
@@ -16,8 +16,7 @@ namespace CensusAnalyserProblem
         public double populationDensity;
         public double housingDensity;
 
-        public USCensusCSV(string stateCode, string state, string population, string housingUnits, string totalArea, 
-            string waterArea, string landArea, string populationDensity, string housingDensity)
+        public USCensusCSV(string stateCode, string state, string population, string housingUnits, string totalArea, string waterArea, string landArea, string populationDensity, string housingDensity)
         {
             this.stateCode = stateCode;
             this.state = state;

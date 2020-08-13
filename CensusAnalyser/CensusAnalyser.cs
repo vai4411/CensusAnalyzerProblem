@@ -1,47 +1,80 @@
-﻿using Newtonsoft.Json;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-
+﻿// <copyright file="CensusAnalyser.cs" company="Bridgelabz">
+// Copyright (c) Bridgelabz. All rights reserved.
+// </copyright>
 namespace CensusAnalyserProblem
 {
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using Newtonsoft.Json;
+
+    /// <summary>
+    /// This class use for load data and sort data.
+    /// </summary>
     public class CensusAnalyser : ICSVBuilder
     {
-        private static readonly string JSON_FILE_PATH = "C:/Users/Vaibhav/source/repos/CensusAnalyser/CensusAnalyserTest/resources/csv/CensusData.json";
-        public delegate int totalRecords();
-        public string path;
-        public string header;
-        public CountryEnum country;
-        List<CensusDTO> censusList = new List<CensusDTO>();
-        List<CensusDTO> sortedLists = new List<CensusDTO>();
-        Dictionary<string, CensusDTO> map = new Dictionary<string, CensusDTO>();
+        private static readonly string JSONFILEPATH = "C:/Users/Vaibhav/source/repos/CensusAnalyser/CensusAnalyserTest/resources/csv/CensusData.json";
 
-        public CensusAnalyser(CountryEnum country,string path, string header)
+        public delegate int TotalRecords();
+
+        private string path;
+        private string header;
+        private CountryEnum country;
+        private List<CensusDTO> censusList = new List<CensusDTO>();
+        private List<CensusDTO> sortedLists = new List<CensusDTO>();
+        private Dictionary<string, CensusDTO> map = new Dictionary<string, CensusDTO>();
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CensusAnalyser"/> class.
+        /// </summary>
+        /// <param name="country"></param>
+        /// <param name="path"></param>
+        /// <param name="header"></param>
+        public CensusAnalyser(CountryEnum country, string path, string header)
         {
             this.path = path;
             this.header = header;
             this.country = country;
         }
 
-        public int getCount() 
+        /// <summary>
+        /// This method returns total entry count.
+        /// </summary>
+        /// <returns>Total number of entries.</returns>
+        public int GetCount()
         {
-            map = new CensusFactory().GetCensusData(country,path,header);
-            return map.Count;
+            this.map = new CensusFactory().GetCensusData(this.country, this.path, this.header);
+            return this.map.Count;
         }
 
+        /// <summary>
+        /// This method returns sorted data in asending and descending order.
+        /// </summary>
+        /// <param name="field">Enum parameter.</param>
+        /// <param name="order">Oredr of sorting.</param>
+        /// <returns>Sorted string data.</returns>
         public string GetSortedData(SortParameters field, string order)
         {
-            getCount();
-            censusList = new List<CensusDTO>(map.Values);
-            sortedLists = GetSoretdField(field, censusList);
+            this.GetCount();
+            this.censusList = new List<CensusDTO>(this.map.Values);
+            this.sortedLists = this.GetSoretdField(field, this.censusList);
 
             if (order.Equals("desc"))
-                sortedLists.Reverse();
-            string data = JsonConvert.SerializeObject(sortedLists);
-            File.WriteAllText(JSON_FILE_PATH, data);
+            {
+                this.sortedLists.Reverse();
+            }
+
+            string data = JsonConvert.SerializeObject(this.sortedLists);
+            File.WriteAllText(JSONFILEPATH, data);
             return data;
         }
 
+        /// <summary>
+        /// This method returns list of sorted data.
+        /// </summary>
+        /// <param name="filedName">Enum parameter.</param>
+        /// <param name="censusList">List of data.</param>
+        /// <returns>List of sorted data.</returns>
         public List<CensusDTO> GetSoretdField(SortParameters filedName, List<CensusDTO> censusList)
         {
             return filedName switch

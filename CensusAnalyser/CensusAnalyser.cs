@@ -29,7 +29,7 @@ namespace CensusAnalyserProblem
             return map.Count;
         }
 
-        public string GetSortedData(string field, string order)
+        public string GetSortedData(SortParameters field, string order)
         {
             getCount();
             censusList = new List<CensusDTO>(map.Values);
@@ -42,17 +42,17 @@ namespace CensusAnalyserProblem
             return data;
         }
 
-        public List<CensusDTO> GetSoretdField(string filedName, List<CensusDTO> censusList)
+        public List<CensusDTO> GetSoretdField(SortParameters filedName, List<CensusDTO> censusList)
         {
             return filedName switch
             {
-                "state" => censusList.OrderBy(x => x.state).ToList(),
-                "stateCode" => censusList.OrderBy(x => x.stateCode).ToList(),
-                "population" => censusList.OrderBy(x => x.population).ToList(),
-                "density" => censusList.OrderBy(x => x.density).ToList(),
-                "area" => censusList.OrderBy(x => x.area).ToList(),
-                "populationDensity" => censusList.OrderBy(x => x.populationDensity).ToList(),
-                "populationWithDensity" => censusList.OrderBy(x => x.population).ThenBy(x => x.populationDensity).ToList(),
+                SortParameters.STATE => censusList.OrderBy(x => x.state).ToList(),
+                SortParameters.STATE_CODE => censusList.OrderBy(x => x.stateCode).ToList(),
+                SortParameters.POPULATION => censusList.OrderBy(x => x.population).ToList(),
+                SortParameters.DENSITY => censusList.OrderBy(x => x.density).ToList(),
+                SortParameters.AREA => censusList.OrderBy(x => x.area).ToList(),
+                SortParameters.POPULATION_DENSITY => censusList.OrderBy(x => x.populationDensity).ToList(),
+                SortParameters.POPULATION_WITH_DENSITY => censusList.OrderBy(x => x.population).ThenBy(x => x.populationDensity).ToList(),
                 _ => censusList,
             };
         }

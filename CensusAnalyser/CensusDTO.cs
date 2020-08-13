@@ -2,8 +2,6 @@
 {
     public class CensusDTO
     {
-        public string id;
-        public string name;
         public string state;
         public int sr;
         public int tin;
@@ -36,8 +34,8 @@
 
         public CensusDTO(USCensusCSV usCensusDAO)
         {
-            this.id = usCensusDAO.id;
-            this.name = usCensusDAO.name;
+            this.stateCode = usCensusDAO.stateCode;
+            this.state = usCensusDAO.state;
             this.population = usCensusDAO.population;
             this.housingUnits = usCensusDAO.housingUnits;
             this.totalArea = usCensusDAO.totalArea;

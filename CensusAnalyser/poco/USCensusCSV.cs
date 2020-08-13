@@ -6,8 +6,8 @@ namespace CensusAnalyserProblem
 {
     public class USCensusCSV
     {
-        public string id;
-        public string name;
+        public string stateCode;
+        public string state;
         public long population;
         public long housingUnits;
         public double totalArea;
@@ -16,11 +16,11 @@ namespace CensusAnalyserProblem
         public double populationDensity;
         public double housingDensity;
 
-        public USCensusCSV(string id, string name, string population, string housingUnits, string totalArea, 
+        public USCensusCSV(string stateCode, string state, string population, string housingUnits, string totalArea, 
             string waterArea, string landArea, string populationDensity, string housingDensity)
         {
-            this.id = id;
-            this.name = name;
+            this.stateCode = stateCode;
+            this.state = state;
             this.population = long.Parse(population);
             this.housingUnits = long.Parse(housingUnits);
             this.totalArea = double.Parse(totalArea);

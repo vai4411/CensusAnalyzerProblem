@@ -30,7 +30,7 @@ namespace CensusAnalyserProblem
             }
             else
             {
-                throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.INVALID_COUNTRY);
+                throw new CensusAnalyserException("Invalid country", CensusAnalyserException.ExceptionType.INVALID_COUNTRY);
             }
         }
     }

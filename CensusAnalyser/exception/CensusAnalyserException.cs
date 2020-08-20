@@ -24,8 +24,8 @@ namespace CensusAnalyserProblem
 
         public ExceptionType exceptionType;
 
-        public CensusAnalyserException(ExceptionType exceptionType)
-            : base(exceptionType.ToString())
+        public CensusAnalyserException(string message, ExceptionType exceptionType)
+            : base(message)
         {
             this.exceptionType = exceptionType;
         }

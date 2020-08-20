@@ -26,7 +26,7 @@ namespace CensusAnalyserProblem
             string[] data = this.LoadData(path);
             if (data.ElementAt(0) != header)
             {
-                throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.INVALID_HEADER);
+                throw new CensusAnalyserException("Invalid header", CensusAnalyserException.ExceptionType.INVALID_HEADER);
             }
 
             foreach (string record in data.Skip(1))
@@ -34,7 +34,7 @@ namespace CensusAnalyserProblem
                 string[] entries = record.Split(',');
                 if (record.Split(',').Length != header.Split(',').Length)
                 {
-                    throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.INVALID_DELIMITER);
+                    throw new CensusAnalyserException("Invalid delimiter", CensusAnalyserException.ExceptionType.INVALID_DELIMITER);
                 }
 
                 if (header.Equals(CensusHeader))

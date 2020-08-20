@@ -29,12 +29,12 @@ namespace CensusAnalyserProblem
         {
             if (!File.Exists(path))
             {
-                throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.FILE_NOT_FOUND);
+                throw new CensusAnalyserException("File not found", CensusAnalyserException.ExceptionType.FILE_NOT_FOUND);
             }
 
             if (Path.GetExtension(path) != ".csv")
             {
-                throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.INVALID_FILE_TYPE);
+                throw new CensusAnalyserException("Invalid file type", CensusAnalyserException.ExceptionType.INVALID_FILE_TYPE);
             }
 
             string[] data = File.ReadAllLines(path);

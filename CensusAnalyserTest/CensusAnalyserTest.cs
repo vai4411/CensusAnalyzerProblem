@@ -12,7 +12,7 @@ namespace CensusAnalyserTest
     /// <summary>
     /// Test cases.
     /// </summary>
-    public class Tests
+    public class CensusAnalyserTest
     {
         // india census and state code file paths
         private static readonly string IndiaCensusCSVFilePath = "C:/Users/Vaibhav/source/repos/CensusAnalyser/CensusAnalyserTest/resources/csv/IndiaStateCensusData.csv";

@@ -447,5 +447,21 @@ namespace CensusAnalyserTest
             USCensusCSV[] census = JsonConvert.DeserializeObject<USCensusCSV[]>(data);
             Assert.AreEqual("California", census[0].state);
         }
+
+        /// <summary>
+        /// sort by population with density and display most populated state between indian and us states.
+        /// </summary>
+        [Test]
+        public void GivenSCensusData_WhenPopulationAndDensityPassAsSortingParameter_ThenSortDataInJsonFormatAndDisplayMostPopulateState()
+        {
+            CensusAnalyser censusAnalyser = new CensusAnalyser(CountryEnum.US, UsCensusCSVFilePath, USCensusHeader);
+            string data = censusAnalyser.GetSortedData(SortParameters.POPULATION_WITH_DENSITY, "desc");
+            USCensusCSV[] uSCensus = JsonConvert.DeserializeObject<USCensusCSV[]>(data);
+            CensusAnalyser censusAnalyser1 = new CensusAnalyser(CountryEnum.INDIA, IndiaCensusCSVFilePath, CensusHeader);
+            string data1 = censusAnalyser1.GetSortedData(SortParameters.POPULATION_WITH_DENSITY, "desc");
+            IndiaCensusCSV[] indiaCensus = JsonConvert.DeserializeObject<IndiaCensusCSV[]>(data1);
+            string result = GetSortedDataFromIndianAndUs(indiaCensus[0], uSCensus[0]);
+            Assert.AreEqual("Uttar Pradesh", result);
+        }
     }
 }

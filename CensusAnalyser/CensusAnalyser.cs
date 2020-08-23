@@ -70,6 +70,17 @@ namespace CensusAnalyserProblem
         }
 
         /// <summary>
+        /// This method used for analyse sorted data between india and us census data.
+        /// </summary>
+        /// <param name="indiaCensus">Indian census data.</param>
+        /// <param name="usCensus">US census data.</param>
+        /// <returns></returns>
+        public static string GetSortedDataFromIndianAndUs(IndiaCensusCSV indiaCensus, USCensusCSV usCensus)
+        {
+           return _ = (indiaCensus.population.CompareTo(usCensus.population) > 0) ? indiaCensus.state : usCensus.state;
+        }
+
+        /// <summary>
         /// This method returns list of sorted data.
         /// </summary>
         /// <param name="filedName">Enum parameter.</param>

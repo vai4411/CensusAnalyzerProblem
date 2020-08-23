@@ -39,7 +39,7 @@ namespace CensusAnalyserProblem
 
                 if (header.Equals(CensusHeader))
                 {
-                    map.Add(entries[0], new CensusDTO(new IndiaCensusCSV(entries[0], entries[1], entries[2], entries[3])));
+                    map.Add(entries[0], new CensusDTO(new CensusCSV(entries[0], entries[1], entries[2], entries[3])));
                 }
                 else
                 {

@@ -8,3 +8,9 @@ dotnet_diagnostic.SA0001.severity = none
 
 # SA1204: Static elements should appear before instance elements
 dotnet_diagnostic.SA1204.severity = none
+
+# SA1307: Accessible fields should begin with upper-case letter
+dotnet_diagnostic.SA1307.severity = none
+
+# SA1401: Fields should be private
+dotnet_diagnostic.SA1401.severity = none

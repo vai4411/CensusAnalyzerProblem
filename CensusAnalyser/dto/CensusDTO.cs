@@ -26,19 +26,7 @@ namespace CensusAnalyserProblem
         /// <summary>
         /// Initializes a new instance of the <see cref="CensusDTO"/> class.
         /// </summary>
-        /// <param name="indiaCensusDAO">IndiaCensusCSV.</param>
-        public CensusDTO(IndiaCensusCSV indiaCensusDAO)
-        {
-            this.state = indiaCensusDAO.state;
-            this.population = indiaCensusDAO.population;
-            this.area = indiaCensusDAO.area;
-            this.density = indiaCensusDAO.density;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CensusDTO"/> class.
-        /// </summary>
-        /// <param name="indiaCensusDAO">IndiaStateCodeCSV.</param>
+        /// <param name="stateCodeDAO">IndiaStateCodeCSV.</param>
         public CensusDTO(IndiaStateCodeCSV stateCodeDAO)
         {
             this.sr = stateCodeDAO.sr;
@@ -50,18 +38,20 @@ namespace CensusAnalyserProblem
         /// <summary>
         /// Initializes a new instance of the <see cref="CensusDTO"/> class.
         /// </summary>
-        /// <param name="indiaCensusDAO">USCensusCSV.</param>
-        public CensusDTO(USCensusCSV usCensusDAO)
+        /// <param name="censusDAO">censusCSV.</param>
+        public CensusDTO(CensusCSV censusDAO)
         {
-            this.stateCode = usCensusDAO.stateCode;
-            this.state = usCensusDAO.state;
-            this.population = usCensusDAO.population;
-            this.housingUnits = usCensusDAO.housingUnits;
-            this.totalArea = usCensusDAO.totalArea;
-            this.waterArea = usCensusDAO.waterArea;
-            this.landArea = usCensusDAO.landArea;
-            this.populationDensity = usCensusDAO.populationDensity;
-            this.housingDensity = usCensusDAO.housingDensity;
+            this.state = censusDAO.state;
+            this.population = censusDAO.population;
+            this.area = censusDAO.area;
+            this.density = censusDAO.density;
+            this.stateCode = censusDAO.stateCode;
+            this.housingUnits = censusDAO.housingUnits;
+            this.totalArea = censusDAO.totalArea;
+            this.waterArea = censusDAO.waterArea;
+            this.landArea = censusDAO.landArea;
+            this.populationDensity = censusDAO.populationDensity;
+            this.housingDensity = censusDAO.housingDensity;
         }
     }
 }

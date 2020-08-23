@@ -35,7 +35,7 @@ namespace CensusAnalyserProblem
                     throw new CensusAnalyserException("Invalid delimiter", CensusAnalyserException.ExceptionType.INVALID_DELIMITER);
                 }
 
-                map.Add(entries[1], new CensusDTO(new USCensusCSV(entries[0], entries[1], entries[2], entries[3], entries[4], entries[5], entries[6], entries[7], entries[8])));
+                map.Add(entries[1], new CensusDTO(new CensusCSV(entries[0], entries[1], entries[2], entries[3], entries[4], entries[5], entries[6], entries[7], entries[8])));
             }
 
             return map;

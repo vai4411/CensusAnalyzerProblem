@@ -75,9 +75,9 @@ namespace CensusAnalyserProblem
         /// <param name="indiaCensus">Indian census data.</param>
         /// <param name="usCensus">US census data.</param>
         /// <returns></returns>
-        public static string GetSortedDataFromIndianAndUs(IndiaCensusCSV indiaCensus, USCensusCSV usCensus)
+        public static string GetSortedDataFromIndianAndUs(CensusCSV indiaCensus, CensusCSV usCensus)
         {
-           return _ = (indiaCensus.population.CompareTo(usCensus.population) > 0) ? indiaCensus.state : usCensus.state;
+           return _ = (indiaCensus.population > usCensus.population) ? indiaCensus.state : usCensus.state;
         }
 
         /// <summary>
